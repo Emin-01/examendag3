@@ -28,6 +28,6 @@ class Persoon extends Model
 
     public function allergies()
 {
-    return $this->belongsToMany(Allergie::class, 'persoon_allergie', 'persoon_id', 'allergie_id');
+    return $this->belongsToMany(Allergie::class, 'allergie_per_persoon', 'persoon_id', 'allergie_id');
 }
 }

@@ -75,6 +75,8 @@ return new class extends Migration
             $table->string('locatie');
             $table->timestamps();
         });
+
+
     }
 
     public function down(): void
