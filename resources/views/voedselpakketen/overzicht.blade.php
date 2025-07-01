@@ -28,14 +28,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for($i = 0; $i < 6; $i++)
                     <tr>
-                        <td class="border px-2 py-1 text-[15px]"></td>
-                        <td class="border px-2 py-1 text-[15px]"></td>
-                        <td class="border px-2 py-1 text-[15px]"></td>
-                        <td class="border px-2 py-1 text-[15px]"></td>
-                        <td class="border px-2 py-1 text-[15px]"></td>
-                        <td class="border px-2 py-1 text-[15px]"></td>
+                        <td class="border px-2 py-1 text-[15px]">Familie Bakker</td>
+                        <td class="border px-2 py-1 text-[15px]">Gezin met allergie voor noten</td>
+                        <td class="border px-2 py-1 text-[15px]">2</td>
+                        <td class="border px-2 py-1 text-[15px]">3</td>
+                        <td class="border px-2 py-1 text-[15px]">1</td>
+                        <td class="border px-2 py-1 text-[15px]">Piet Bakker</td>
                         <td class="border px-2 py-1 text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="inline h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <rect x="4" y="7" width="16" height="13" rx="2" stroke-width="2" stroke="currentColor" fill="none"/>
@@ -43,7 +42,21 @@
                             </svg>
                         </td>
                     </tr>
-                    @endfor
+                    <tr>
+                        <td class="border px-2 py-1 text-[15px]">Familie Yilmaz</td>
+                        <td class="border px-2 py-1 text-[15px]">Halal, geen varkensvlees</td>
+                        <td class="border px-2 py-1 text-[15px]">2</td>
+                        <td class="border px-2 py-1 text-[15px]">2</td>
+                        <td class="border px-2 py-1 text-[15px]">0</td>
+                        <td class="border px-2 py-1 text-[15px]">Fatma Yilmaz</td>
+                        <td class="border px-2 py-1 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <rect x="4" y="7" width="16" height="13" rx="2" stroke-width="2" stroke="currentColor" fill="none"/>
+                                <path d="M8 7V5a4 4 0 1 1 8 0v2" stroke-width="2" stroke="currentColor" fill="none"/>
+                            </svg>
+                        </td>
+                    </tr>
+                    <!-- Voeg hier meer eigen dummy-rijen toe als je wilt -->
                 </tbody>
             </table>
         </div>
