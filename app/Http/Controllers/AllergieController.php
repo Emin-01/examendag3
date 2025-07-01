@@ -10,11 +10,15 @@ class AllergieController extends Controller
 {
     public function index()
     {
+        // Haal alle allergieën op
         $allergies = Allergie::all();
+
+        // Haal gezinnen op met personen die allergieën hebben
         $gezinnenMetAllergies = Gezin::with(['personen.allergies'])
             ->whereHas('personen.allergies')
             ->get();
 
+        // Stuur de data naar de view
         return view('allergies.index', compact('allergies', 'gezinnenMetAllergies'));
     }
 
