@@ -85,6 +85,8 @@
                 <th>Soort Allergie</th>
                 <th>Barcode</th>
                 <th>Houdbaarheidsdatum</th>
+                <th>Datum Aangeleverd</th>
+                <th>Datum Eerst Volgende Levering</th>
                 <th>Wijzig Product</th>
             </tr>
         </thead>
@@ -95,6 +97,8 @@
                     <td>{{ $product->soort_allergie }}</td>
                     <td>{{ $product->barcode }}</td>
                     <td>{{ \Carbon\Carbon::parse($product->houdbaarheidsdatum)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($product->DatumAangeleverd)->format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($product->DatumEerstVolgendeLevering)->format('d-m-Y') }}</td>
                     <td style="text-align: center;">
                         <a href="{{ route('producten.edit', $product) }}" class="edit-icon" title="Wijzig Product">&#9998;</a>
                     </td>

@@ -8,21 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->string('naam');
-            $table->string('soort_allergie')->nullable();
+            $table->string('soortallergie')->nullable();
             $table->string('barcode')->nullable();
             $table->date('houdbaarheidsdatum');
-            $table->unsignedBigInteger('leverancier_id');
             $table->timestamps();
-
-            $table->foreign('leverancier_id')->references('id')->on('leveranciers')->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('product');
     }
 };
