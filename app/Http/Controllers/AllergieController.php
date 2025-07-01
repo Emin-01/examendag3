@@ -5,6 +5,7 @@ use App\Models\Gezin;
 use App\Models\Allergie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Persoon;
 
 
 class AllergieController extends Controller
@@ -32,5 +33,23 @@ class AllergieController extends Controller
 
         // Stuur de data naar de juiste view
         return view('allergie.overzicht', compact('gezinnen', 'allergies'));
+    }
+
+    public function edit($id)
+    {
+        $persoon = Persoon::findOrFail($id);
+        $allergies = Allergie::all();
+        return view('allergie.edit', compact('persoon', 'allergies'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $persoon = Persoon::findOrFail($id);
+        $allergieId = $request->input('allergie_id');
+
+        // Update de allergie in de pivot-tabel
+        $persoon->allergies()->sync([$allergieId]);
+
+        return redirect()->route('allergie.overzicht')->with('success', 'De wijziging is doorgevoerd');
     }
 }

@@ -22,5 +22,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/allergie/overzicht', [AllergieController::class, 'overzicht'])->name('allergie.overzicht');
+Route::get('/allergie/{id}/edit', [AllergieController::class, 'edit'])->name('allergie.edit');
+Route::put('/allergie/{id}', [AllergieController::class, 'update'])->name('allergie.update');
+
 
 require __DIR__.'/auth.php';
