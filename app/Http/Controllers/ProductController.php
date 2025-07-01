@@ -15,14 +15,15 @@ class ProductController extends Controller
 
         // Haal producten op via de tussenliggende tabel productperleverancier
         $producten = DB::table('productperleverancier')
-            ->join('product', 'productperleverancier.ProductId', '=', 'product.id')
+            ->join('products', 'productperleverancier.ProductId', '=', 'products.id')
             ->where('productperleverancier.LeverancierId', $leverancierId)
             ->select(
-                'product.id',
-                'product.naam',
-                'product.soortallergie',
-                'product.barcode',
-                'product.houdbaarheidsdatum',
+                'productperleverancier.id as ppid',
+                'products.id as product_id',
+                'products.naam',
+                'products.soortallergie',
+                'products.barcode',
+                'products.houdbaarheidsdatum',
                 'productperleverancier.DatumAangeleverd',
                 'productperleverancier.DatumEerstVolgendeLevering'
             )
@@ -31,24 +32,63 @@ class ProductController extends Controller
         return view('producten.index', compact('leverancier', 'producten'));
     }
 
-    public function edit($productId)
+    public function edit($ppid)
     {
-        $product = DB::table('product')->where('id', $productId)->first();
-        return view('producten.edit', compact('product'));
+        // Haal de juiste rij uit de tussenliggende tabel en het product
+        $pp = DB::table('productperleverancier')
+            ->where('id', $ppid)
+            ->first();
+
+        if (!$pp) {
+            abort(404);
+        }
+
+        $product = DB::table('products')->where('id', $pp->ProductId)->first();
+
+        return view('producten.edit', [
+            'ppid' => $ppid,
+            'product' => $product,
+            'datum_aangeleverd' => $pp->DatumAangeleverd,
+            'datum_eerst_volgende_levering' => $pp->DatumEerstVolgendeLevering,
+        ]);
     }
 
-    public function update(Request $request, $productId)
+    public function update(Request $request, $ppid)
     {
         $request->validate([
+            'naam' => 'required|string',
+            'soortallergie' => 'nullable|string',
+            'barcode' => 'nullable|string',
             'houdbaarheidsdatum' => 'required|date',
+            'datum_aangeleverd' => 'nullable|date',
+            'datum_eerst_volgende_levering' => 'nullable|date',
         ]);
 
-        DB::table('product')
-            ->where('id', $productId)
-            ->update(['houdbaarheidsdatum' => $request->houdbaarheidsdatum]);
+        $pp = DB::table('productperleverancier')->where('id', $ppid)->first();
+        if (!$pp) {
+            abort(404);
+        }
+
+        // Update product
+        DB::table('products')
+            ->where('id', $pp->ProductId)
+            ->update([
+                'naam' => $request->naam,
+                'soortallergie' => $request->soortallergie,
+                'barcode' => $request->barcode,
+                'houdbaarheidsdatum' => $request->houdbaarheidsdatum,
+            ]);
+
+        // Update productperleverancier
+        DB::table('productperleverancier')
+            ->where('id', $ppid)
+            ->update([
+                'DatumAangeleverd' => $request->datum_aangeleverd,
+                'DatumEerstVolgendeLevering' => $request->datum_eerst_volgende_levering,
+            ]);
 
         return redirect()
-            ->route('producten.edit', $productId)
-            ->with('success', 'De houdbaarheidsdatum is gewijzigd');
+            ->route('producten.edit', $ppid)
+            ->with('success', 'Product en leverdata zijn gewijzigd');
     }
 }

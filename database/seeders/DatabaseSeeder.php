@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             LeverancierSeeder::class,
             ContactSeeder::class,
             ContactPerLeverancierSeeder::class,
+            ProductSeeder::class, // toegevoegd
         ]);
     }
 }

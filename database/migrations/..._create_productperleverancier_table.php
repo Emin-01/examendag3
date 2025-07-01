@@ -6,21 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('productperleverancier', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ProductId');
-            $table->unsignedBigInteger('LeverancierId');
-            $table->date('DatumAangeleverd')->nullable();
-            $table->date('DatumEerstVolgendeLevering')->nullable();
+            $table->foreignId('leverancier_id')->constrained('leveranciers')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->date('datum_aangeleverd')->nullable();
+            $table->date('datum_eerst_volgende_levering')->nullable();
             $table->timestamps();
-
-            $table->foreign('ProductId')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('LeverancierId')->references('id')->on('leveranciers')->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('productperleverancier');
