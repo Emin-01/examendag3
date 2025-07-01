@@ -15,8 +15,8 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('voedselpakketen.overzicht')" :active="request()->routeIs('voedselpakketen.overzicht')">
-                        {{ __('Overzicht Voedselpakketen') }}
+                    <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
+                        {{ __('Overzicht Allergie') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -73,8 +73,8 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('voedselpakketen.overzicht')" :active="request()->routeIs('voedselpakketen.overzicht')">
-                {{ __('Overzicht Voedselpakketen') }}
+            <x-responsive-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
+                {{ __('Overzicht Allergie') }}
             </x-responsive-nav-link>
         </div>
 

@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GezinController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Allergie;
+use App\Models\Gezin;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,5 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/overzicht-voedselpakketen', [GezinController::class, 'index'])->name('voedselpakketen.overzicht');
 });
+
+Route::get('/allergie/overzicht', [AllergieController::class, 'overzicht'])->name('allergie.overzicht');
+Route::get('/allergie/{id}/edit', [AllergieController::class, 'edit'])->name('allergie.edit');
+Route::put('/allergie/{id}', [AllergieController::class, 'update'])->name('allergie.update');
+
 
 require __DIR__.'/auth.php';
