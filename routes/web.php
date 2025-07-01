@@ -23,4 +23,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/allergies/filter', [AllergieController::class, 'filterByAllergie'])->name('allergies.filter');
 });
 
+Route::get('/test-allergies', [AllergieController::class, 'index']);
+
 require __DIR__.'/auth.php';

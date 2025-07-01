@@ -11,10 +11,10 @@ class AllergieController extends Controller
     public function index()
     {
         $allergies = Allergie::all();
-        $gezinnenMetAllergies = Gezin::with(['personen.allergies', 'contacten'])
+        $gezinnenMetAllergies = Gezin::with(['personen.allergies'])
             ->whereHas('personen.allergies')
             ->get();
-        
+
         return view('allergies.index', compact('allergies', 'gezinnenMetAllergies'));
     }
 
@@ -22,23 +22,23 @@ class AllergieController extends Controller
     {
         $allergieId = $request->input('allergie_id');
         $allergies = Allergie::all();
-        
+
         if ($allergieId) {
-            $geselecteerdeAllergie = Allergie::find($allergieId);
-            $gezinnenMetAllergies = Gezin::with(['personen.allergies', 'contacten'])
-                ->whereHas('personen.allergies', function($query) use ($allergieId) {
+            $gezinnenMetAllergies = Gezin::with(['personen.allergies'])
+                ->whereHas('personen.allergies', function ($query) use ($allergieId) {
                     $query->where('allergies.id', $allergieId);
                 })
                 ->get();
-            
+
             if ($gezinnenMetAllergies->isEmpty()) {
                 $melding = "Er zijn geen gezinnen bekend die de geselecteerde allergie hebben";
-                return view('allergies.index', compact('allergies', 'gezinnenMetAllergies', 'melding', 'geselecteerdeAllergie'));
+                return view('allergies.index', compact('allergies', 'gezinnenMetAllergies', 'melding'));
             }
-            
-            return view('allergies.index', compact('allergies', 'gezinnenMetAllergies', 'geselecteerdeAllergie'));
+
+            return view('allergies.index', compact('allergies', 'gezinnenMetAllergies'));
         }
-        
+
         return redirect()->route('allergies.index');
     }
 }
+
