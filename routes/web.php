@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GezinController;
+use App\Http\Controllers\AllergieController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Allergie;
 use App\Models\Gezin;

@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
-                        {{ __('Overzicht Allergie') }}
+                        {{ __('Overzicht voedselpakketen') }}
                     </x-nav-link>
                 </div>
             </div>
