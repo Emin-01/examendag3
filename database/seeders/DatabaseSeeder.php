@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -20,59 +19,82 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'Admin@admin.com',
             'password' => bcrypt('password'), // Password is 'password'
-        ]);
+                ]);
+        
+            }
+        }
 
-        // Voeg dummy gezinnen toe
         DB::table('gezinnen')->insert([
-            // ...bestaande gezinnen...
+            [
+                'id' => 1,
+                'naam' => 'ZevenhuizenGezin',
+                'code' => 'G0001',
+                'omschrijving' => 'Bijstandsgezin',
+                'aantal_volwassenen' => 2,
+                'aantal_kinderen' => 2,
+                'aantal_babys' => 0,
+                'totaal_aantal_personen' => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 2,
+                'naam' => 'BergkampGezin',
+                'code' => 'G0002',
+                'omschrijving' => 'Bijstandsgezin',
+                'aantal_volwassenen' => 2,
+                'aantal_kinderen' => 1,
+                'aantal_babys' => 1,
+                'totaal_aantal_personen' => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 3,
+                'naam' => 'HeuvelGezin',
+                'code' => 'G0003',
+                'omschrijving' => 'Bijstandsgezin',
+                'aantal_volwassenen' => 2,
+                'aantal_kinderen' => 0,
+                'aantal_babys' => 0,
+                'totaal_aantal_personen' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 4,
+                'naam' => 'ScherderGezin',
+                'code' => 'G0004',
+                'omschrijving' => 'Bijstandsgezin',
+                'aantal_volwassenen' => 1,
+                'aantal_kinderen' => 0,
+                'aantal_babys' => 2,
+                'totaal_aantal_personen' => 3,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 5,
+                'naam' => 'DeJongGezin',
+                'code' => 'G0005',
+                'omschrijving' => 'Bijstandsgezin',
+                'aantal_volwassenen' => 1,
+                'aantal_kinderen' => 1,
+                'aantal_babys' => 0,
+                'totaal_aantal_personen' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 6,
+                'naam' => 'VanderBergGezin',
+                'code' => 'G0006',
+                'omschrijving' => 'AlleenGaande',
+                'aantal_volwassenen' => 1,
+                'aantal_kinderen' => 0,
+                'aantal_babys' => 0,
+                'totaal_aantal_personen' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
-
-        // Voeg dummy personen toe
-        DB::table('personen')->insert([
-            [
-                'gezin_id' => 1,
-                'voornaam' => 'Piet',
-                'tussenvoegsel' => null,
-                'achternaam' => 'Bakker',
-                'geboortedatum' => '1980-05-12',
-                'type_persoon' => 'Klant',
-                'is_vertegenwoordiger' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'gezin_id' => 2,
-                'voornaam' => 'Fatma',
-                'tussenvoegsel' => null,
-                'achternaam' => 'Yilmaz',
-                'geboortedatum' => '1975-09-23',
-                'type_persoon' => 'Klant',
-                'is_vertegenwoordiger' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'gezin_id' => 3,
-                'voornaam' => 'Linda',
-                'tussenvoegsel' => null,
-                'achternaam' => 'Jansen',
-                'geboortedatum' => '1990-03-15',
-                'type_persoon' => 'Klant',
-                'is_vertegenwoordiger' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'gezin_id' => 4,
-                'voornaam' => 'Kees',
-                'tussenvoegsel' => null,
-                'achternaam' => 'Visser',
-                'geboortedatum' => '1985-07-08',
-                'type_persoon' => 'Klant',
-                'is_vertegenwoordiger' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
-    }
-}
