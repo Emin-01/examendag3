@@ -55,16 +55,23 @@ class LeverancierController extends Controller
             ]);
         }
 
+        // Haal alle unieke types op voor de dropdown
+        $leverancierTypes = Leverancier::select('type')->distinct()->pluck('type')->toArray();
+
         $query = Leverancier::query();
 
         if ($request->filled('type')) {
             $query->where('type', $request->type);
         }
 
-        // Laad de contact-relatie mee
+        // Haal leveranciers op, gefilterd op type indien gekozen
         $leveranciers = $query->with('contact')->get();
 
-        return view('leveranciers.index', compact('leveranciers'));
+        // Geef leveranciers en types mee aan de view
+        return view('leveranciers.index', [
+            'leveranciers' => $leveranciers,
+            'leverancierTypes' => $leverancierTypes,
+        ]);
     }
 }
 

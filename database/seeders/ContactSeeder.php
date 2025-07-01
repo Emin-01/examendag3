@@ -94,18 +94,7 @@ class ContactSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'id' => 5,
-                'straat' => 'Bertram Russellstraat',
-                'huisnummer' => '45',
-                'toevoeging' => null,
-                'postcode' => '5271TH',
-                'woonplaats' => 'Maaskantje',
-                'email' => 'f.de.jong@hotmail.com',
-                'mobiel' => '+31 623456123',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
         ]);
     }
 }
+// Geen entry voor Jan van der Heijden aanwezig
