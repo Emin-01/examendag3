@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.index')">
-                        Overzicht Leveranciers
+                        Overzicht Leverancier
                     </x-nav-link>
                 </div>
             </div>
