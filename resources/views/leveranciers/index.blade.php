@@ -123,8 +123,8 @@
                     <tr>
                         <td>{{ $leverancier->naam }}</td>
                         <td>{{ $leverancier->contactpersoon }}</td>
-                        <td>{{ $leverancier->contact->email ?? '' }}</td>
-                        <td>{{ $leverancier->contact->mobiel ?? '' }}</td>
+                        <td>{{ $leverancier->email }}</td>
+                        <td>{{ $leverancier->mobiel }}</td>
                         <td>{{ $leverancier->leveranciernummer }}</td>
                         <td>{{ $leverancier->type }}</td>
                         <td style="text-align: center;">
