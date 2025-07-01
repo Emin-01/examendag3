@@ -128,7 +128,9 @@
                         <td>{{ $leverancier->leveranciernummer }}</td>
                         <td>{{ $leverancier->type }}</td>
                         <td style="text-align: center;">
-                            <button class="btn-icon" title="Product Details">🔍</button>
+                            <a href="{{ route('producten.index', $leverancier->id) }}">
+                                <button class="btn-icon" title="Product Details">🔍</button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
