@@ -15,8 +15,6 @@ class LeverancierController extends Controller
                 [
                     'naam' => 'Voedselbedrijf BV',
                     'contactpersoon' => 'Jan Jansen',
-                    'email' => 'info@voedselbedrijf.nl',
-                    'mobiel' => '0612345678',
                     'leveranciernummer' => 'L1001',
                     'type' => 'Bedrijf',
                     'created_at' => now(),
@@ -25,8 +23,6 @@ class LeverancierController extends Controller
                 [
                     'naam' => 'Stichting Hulp',
                     'contactpersoon' => 'Piet Pietersen',
-                    'email' => 'contact@hulpsite.nl',
-                    'mobiel' => '0687654321',
                     'leveranciernummer' => 'L1002',
                     'type' => 'Instelling',
                     'created_at' => now(),
@@ -35,8 +31,6 @@ class LeverancierController extends Controller
                 [
                     'naam' => 'Gemeente Rotterdam',
                     'contactpersoon' => 'Sanne de Vries',
-                    'email' => 'gemeente@rotterdam.nl',
-                    'mobiel' => '0611122233',
                     'leveranciernummer' => 'L1003',
                     'type' => 'Overheid',
                     'created_at' => now(),
@@ -45,8 +39,6 @@ class LeverancierController extends Controller
                 [
                     'naam' => 'Jan de Boer',
                     'contactpersoon' => 'Jan de Boer',
-                    'email' => 'jan@deboer.nl',
-                    'mobiel' => '0612340000',
                     'leveranciernummer' => 'L1004',
                     'type' => 'Particulier',
                     'created_at' => now(),
@@ -55,8 +47,6 @@ class LeverancierController extends Controller
                 [
                     'naam' => 'Donor Stichting',
                     'contactpersoon' => 'Karin Donor',
-                    'email' => 'karin@donorstichting.nl',
-                    'mobiel' => '0699988877',
                     'leveranciernummer' => 'L1005',
                     'type' => 'Donor',
                     'created_at' => now(),
@@ -66,10 +56,15 @@ class LeverancierController extends Controller
         }
 
         $query = Leverancier::query();
+
         if ($request->filled('type')) {
             $query->where('type', $request->type);
         }
+
+        // Als je geen relatie 'contact' hebt, moet je deze regel aanpassen of weghalen.
+        // Bijvoorbeeld: $leveranciers = $query->get();
         $leveranciers = $query->get();
+
         return view('leveranciers.index', compact('leveranciers'));
     }
 }
