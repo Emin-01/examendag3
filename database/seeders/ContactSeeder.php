@@ -94,7 +94,18 @@ class ContactSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 14,
+                'straat' => 'Onbekend',
+                'huisnummer' => '1',
+                'toevoeging' => null,
+                'postcode' => '0000AA',
+                'woonplaats' => 'Onbekend',
+                'email' => null,
+                'mobiel' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
-// Geen entry voor Jan van der Heijden aanwezig
