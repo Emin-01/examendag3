@@ -56,4 +56,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    Route::get('overzicht-voedselpakketen', function () {
+        // Hier kun je een controller of view koppelen
+        return view('voedselpakketen.overzicht');
+    })->name('voedselpakketen.overzicht');
 });
