@@ -23,4 +23,8 @@ Route::get('/klanten', [KlantController::class, 'index'])
     ->middleware(['auth'])
     ->name('klanten.index');
 
+Route::get('/klanten/{id}', [KlantController::class, 'show'])->name('klanten.show')->middleware('auth');
+Route::get('/klanten/{id}/edit', [KlantController::class, 'edit'])->name('klanten.edit')->middleware('auth');
+Route::post('/klanten/{id}/update', [KlantController::class, 'update'])->name('klanten.update')->middleware('auth');
+
 require __DIR__.'/auth.php';
