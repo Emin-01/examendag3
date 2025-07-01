@@ -3,7 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LeverancierController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AllergieController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Allergie;
+use App\Models\Gezin;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,8 +23,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leveranciers.index');
     Route::get('/leveranciers/{leverancier}/producten', [ProductController::class, 'index'])->name('producten.index');
-    Route::get('/producten/{product}/edit', [ProductController::class, 'edit'])->name('producten.edit');
-    Route::put('/producten/{product}', [ProductController::class, 'update'])->name('producten.update');
+    Route::get('/producten/{ppid}/edit', [ProductController::class, 'edit'])->name('producten.edit');
+    Route::put('/producten/{ppid}', [ProductController::class, 'update'])->name('producten.update');
 });
+
+Route::get('/allergie/overzicht', [AllergieController::class, 'overzicht'])->name('allergie.overzicht');
+Route::get('/allergie/{id}/edit', [AllergieController::class, 'edit'])->name('allergie.edit');
+Route::put('/allergie/{id}', [AllergieController::class, 'update'])->name('allergie.update');
+
 
 require __DIR__.'/auth.php';

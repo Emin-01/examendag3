@@ -94,13 +94,13 @@
             @foreach($producten as $product)
                 <tr>
                     <td>{{ $product->naam }}</td>
-                    <td>{{ $product->soort_allergie }}</td>
+                    <td>{{ $product->soortallergie }}</td>
                     <td>{{ $product->barcode }}</td>
-                    <td>{{ \Carbon\Carbon::parse($product->houdbaarheidsdatum)->format('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($product->DatumAangeleverd)->format('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($product->DatumEerstVolgendeLevering)->format('d-m-Y') }}</td>
+                    <td>{{ $product->houdbaarheidsdatum ? \Carbon\Carbon::parse($product->houdbaarheidsdatum)->format('d-m-Y') : '' }}</td>
+                    <td>{{ $product->DatumAangeleverd ? \Carbon\Carbon::parse($product->DatumAangeleverd)->format('d-m-Y') : '' }}</td>
+                    <td>{{ $product->DatumEerstVolgendeLevering ? \Carbon\Carbon::parse($product->DatumEerstVolgendeLevering)->format('d-m-Y') : '' }}</td>
                     <td style="text-align: center;">
-                        <a href="{{ route('producten.edit', $product) }}" class="edit-icon" title="Wijzig Product">&#9998;</a>
+                        <a href="{{ route('producten.edit', $product->ppid) }}" class="edit-icon" title="Wijzig Product">&#9998;</a>
                     </td>
                 </tr>
             @endforeach
