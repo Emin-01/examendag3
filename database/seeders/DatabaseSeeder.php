@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Leveranciers seeder
-        $this->call(LeverancierSeeder::class);
+        $this->call([
+            LeverancierSeeder::class,
+            ContactSeeder::class,
+            ContactPerLeverancierSeeder::class,
+        ]);
     }
 }

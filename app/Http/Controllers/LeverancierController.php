@@ -61,10 +61,10 @@ class LeverancierController extends Controller
             $query->where('type', $request->type);
         }
 
-        // Als je geen relatie 'contact' hebt, moet je deze regel aanpassen of weghalen.
-        // Bijvoorbeeld: $leveranciers = $query->get();
-        $leveranciers = $query->get();
+        // Laad de contact-relatie mee
+        $leveranciers = $query->with('contact')->get();
 
         return view('leveranciers.index', compact('leveranciers'));
     }
 }
+

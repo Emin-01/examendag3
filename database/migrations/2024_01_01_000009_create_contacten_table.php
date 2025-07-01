@@ -10,13 +10,13 @@ return new class extends Migration
     {
         Schema::create('contacten', function (Blueprint $table) {
             $table->id();
-            $table->string('straat');
-            $table->string('huisnummer');
+            $table->string('straat')->nullable();
+            $table->string('huisnummer')->nullable();
             $table->string('toevoeging')->nullable();
-            $table->string('postcode');
-            $table->string('woonplaats');
-            $table->string('email');
-            $table->string('mobiel');
+            $table->string('postcode')->nullable();
+            $table->string('woonplaats')->nullable();
+            $table->string('email')->nullable();
+            $table->string('mobiel')->nullable();
             $table->timestamps();
         });
     }
