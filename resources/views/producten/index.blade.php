@@ -92,6 +92,11 @@
             <td>{{ $leverancier->type }}</td>
         </tr>
     </table>
+    @if($producten->isEmpty())
+        <div style="background: #fffbe6; color: #666; padding: 12px; border-radius: 4px; border: 1px solid #ffe58f; text-align: center; margin-bottom: 16px;">
+            Er zijn geen producten bekend voor deze leverancier
+        </div>
+    @else
     <table class="producten-table">
         <thead>
             <tr>
@@ -120,6 +125,7 @@
             @endforeach
         </tbody>
     </table>
+    @endif
     <div style="margin-top: 12px;">
         <a href="{{ url()->previous() }}" class="btn-secondary">terug</a>
         <a href="{{ url('/') }}" class="home-btn">home</a>

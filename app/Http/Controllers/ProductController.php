@@ -54,11 +54,61 @@ class ProductController extends Controller
 
     public function update(Request $request, $ppid)
     {
+
+
         $request->validate([
-            'houdbaarheidsdatum' => 'required|date',
-            'datum_aangeleverd' => 'required|date',
-            'datum_eerst_volgende_levering' => 'required|date',
+            'houdbaarheidsdatum' => ['required', 'date', 'after_or_equal:today'],
+            'datum_aangeleverd' => ['required', 'date'],
+            'datum_eerst_volgende_levering' => ['required', 'date', 'after_or_equal:datum_aangeleverd'],
+        ], [
+            'houdbaarheidsdatum.after_or_equal' => 'De houdbaarheidsdatum mag niet voor vandaag zijn.',
+            'datum_eerst_volgende_levering.after_or_equal' => 'De eerstvolgende levering mag niet voor de datum aangeleverd zijn.'
         ]);
+
+        $pp = \DB::table('productperleverancier')->where('id', $ppid)->first();
+        if (!$pp) {
+            abort(404);
+        }
+
+        $product = \DB::table('products')->where('id', $pp->ProductId)->first();
+        $oudeDatum = $product->houdbaarheidsdatum;
+        $nieuweDatum = $request->houdbaarheidsdatum;
+
+        // Controle: mag max 7 dagen verlengd worden
+        $maxToegestaan = false;
+        if ($oudeDatum && $nieuweDatum) {
+            $verschil = \Carbon\Carbon::parse($oudeDatum)->diffInDays(\Carbon\Carbon::parse($nieuweDatum), false);
+            if ($verschil > 7) {
+                $maxToegestaan = true;
+            }
+        }
+
+        if ($maxToegestaan) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'De houdbaarheidsdatum is niet gewijzigd. De houdbaarheidsdatum mag met maximaal 7 dagen worden verlengd');
+        }
+
+        // Update houdbaarheidsdatum in products tabel
+        \DB::table('products')
+            ->where('id', $pp->ProductId)
+            ->update([
+                'houdbaarheidsdatum' => $nieuweDatum,
+            ]);
+
+        // Update leverdata in productperleverancier tabel
+        \DB::table('productperleverancier')
+            ->where('id', $ppid)
+            ->update([
+                'DatumAangeleverd' => $request->datum_aangeleverd,
+                'DatumEerstVolgendeLevering' => $request->datum_eerst_volgende_levering,
+            ]);
+
+        // Stuur terug naar het productoverzicht van de leverancier met een succesmelding
+        return redirect()
+            ->route('producten.index', $pp->LeverancierId)
+            ->with('success', 'De houdbaarheidsdatum is gewijzigd');
 
         $pp = DB::table('productperleverancier')->where('id', $ppid)->first();
         if (!$pp) {

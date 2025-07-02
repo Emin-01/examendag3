@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             ContactSeeder::class,
             ContactPerLeverancierSeeder::class,
             ProductSeeder::class,
-            ProductPerLeverancierSeeder::class, // <-- voeg deze toe
+            // ProductPerLeverancierSeeder::class, // oude seeder uitzetten
+            ProductPerLeverancierFullSeeder::class, // nieuwe seeder met alle leveranciers en producten
         ]);
 
         // Allergieën seeder
