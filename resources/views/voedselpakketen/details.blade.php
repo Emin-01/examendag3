@@ -91,7 +91,7 @@
                     <td>{{ $pakket->status }}</td>
                     <td>{{ $pakket->producten->count() }}</td>
                     <td style="text-align: center;">
-                        <a href="{{ route('voedselpakketen.edit', ['id' => $pakket->id]) }}" class="details-icon" title="Wijzig Status">&#9998;</a>
+                        <a href="{{ route('voedselpakketen.edit', $pakket->id) }}" class="details-icon" title="Wijzig Status">&#9998;</a>
                     </td>
                 </tr>
             @empty
