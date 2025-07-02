@@ -82,7 +82,7 @@
         <form method="GET" action="{{ route('allergie.overzicht') }}" style="display: flex; gap: 10px;">
             @csrf
             <select name="allergie_id" class="border rounded px-2 py-1 h-8 text-[15px]">
-                <option value="">Selecteer eetwens</option>
+                <option value="">Selecteer allergie</option>
                 @foreach($allergies as $allergie)
                     <option value="{{ $allergie->id }}" {{ request('allergie_id') == $allergie->id ? 'selected' : '' }}>
                         {{ $allergie->naam }}
@@ -106,8 +106,7 @@
             </tr>
         </thead>
         <tbody>
-            @php $rows = $gezinnen; @endphp
-            @if($rows->isEmpty())
+            @if($gezinnen->isEmpty())
                 <tr>
                     <td colspan="7">
                         <div class="empty-message">
@@ -116,24 +115,22 @@
                     </td>
                 </tr>
             @else
-                @foreach($rows as $gezin)
+                @foreach($gezinnen as $gezin)
                     @php
                         $vertegenwoordiger = $gezin->personen->where('is_vertegenwoordiger', true)->first();
                     @endphp
                     <tr>
-                        <td>{{ $gezin->naam }}</td>
-                        <td>{{ $gezin->omschrijving }}</td>
-                        <td>{{ $gezin->aantal_volwassenen }}</td>
-                        <td>{{ $gezin->aantal_kinderen }}</td>
-                        <td>{{ $gezin->aantal_babys }}</td>
+                        <td>{{ $gezin->naam ?? '~~~~' }}</td>
+                        <td>{{ $gezin->omschrijving ?? '~~~~' }}</td>
+                        <td>{{ $gezin->aantal_volwassenen ?? '~~~~' }}</td>
+                        <td>{{ $gezin->aantal_kinderen ?? '~~~~' }}</td>
+                        <td>{{ $gezin->aantal_babys ?? '~~~~' }}</td>
                         <td>
-                            {{ $vertegenwoordiger ? $vertegenwoordiger->voornaam . ' ' . $vertegenwoordiger->achternaam : '' }}
+                            {{ $vertegenwoordiger ? $vertegenwoordiger->voornaam . ' ' . $vertegenwoordiger->achternaam : '~~~~' }}
                         </td>
                         <td style="text-align: center;">
-                            <a href="{{ route('allergie.edit', ['id' => $gezin->id]) }}">
-                                <button class="btn-icon" title="Bewerk gezin">
-                                    &#9998;
-                                </button>
+                            <a href="{{ route('allergie.details', ['id' => $gezin->id]) }}">
+                                <button class="btn-icon" title="Bekijk details">&#128230;</button>
                             </a>
                         </td>
                     </tr>

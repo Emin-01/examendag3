@@ -38,6 +38,6 @@ class Gezin extends Model
 
     public function voedselpakketten()
     {
-        return $this->hasMany(Voedselpakket::class, 'gezin_id');
+        return $this->hasMany(\App\Models\Voedselpakket::class, 'gezin_id');
     }
 }
