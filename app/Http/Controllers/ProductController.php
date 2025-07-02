@@ -14,7 +14,7 @@ class ProductController extends Controller
         $leverancier = Leverancier::findOrFail($leverancierId);
 
         // Haal producten op via de tussenliggende tabel productperleverancier
-        $producten = DB::table('productperleverancier')
+        $producten = \DB::table('productperleverancier')
             ->join('products', 'productperleverancier.ProductId', '=', 'products.id')
             ->where('productperleverancier.LeverancierId', $leverancierId)
             ->select(
@@ -24,8 +24,8 @@ class ProductController extends Controller
                 'products.soortallergie',
                 'products.barcode',
                 'products.houdbaarheidsdatum',
-                'productperleverancier.DatumAangeleverd',
-                'productperleverancier.DatumEerstVolgendeLevering'
+                'productperleverancier.DatumAangeleverd as DatumAangeleverd',
+                'productperleverancier.DatumEerstVolgendeLevering as DatumEerstVolgendeLevering'
             )
             ->get();
 
@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function edit($ppid)
     {
         // Haal de juiste rij uit de tussenliggende tabel en het product
-        $pp = DB::table('productperleverancier')
+        $pp = \DB::table('productperleverancier')
             ->where('id', $ppid)
             ->first();
 
@@ -43,7 +43,7 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $product = DB::table('products')->where('id', $pp->ProductId)->first();
+        $product = \DB::table('products')->where('id', $pp->ProductId)->first();
 
         return view('producten.edit', [
             'ppid' => $ppid,
@@ -64,13 +64,13 @@ class ProductController extends Controller
             'datum_eerst_volgende_levering' => 'nullable|date',
         ]);
 
-        $pp = DB::table('productperleverancier')->where('id', $ppid)->first();
+        $pp = \DB::table('productperleverancier')->where('id', $ppid)->first();
         if (!$pp) {
             abort(404);
         }
 
         // Update product
-        DB::table('products')
+        \DB::table('products')
             ->where('id', $pp->ProductId)
             ->update([
                 'naam' => $request->naam,
@@ -80,7 +80,7 @@ class ProductController extends Controller
             ]);
 
         // Update productperleverancier
-        DB::table('productperleverancier')
+        \DB::table('productperleverancier')
             ->where('id', $ppid)
             ->update([
                 'DatumAangeleverd' => $request->datum_aangeleverd,

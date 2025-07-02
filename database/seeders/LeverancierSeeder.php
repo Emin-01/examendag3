@@ -53,8 +53,8 @@ class LeverancierSeeder extends Seeder
                 'contactpersoon' => 'Jan van der Heijden',
                 'leveranciernummer' => 'L0005',
                 'type' => 'Donor',
-                'email' => 'jan.vdheijden@gmail.com', // toegevoegd
-                'mobiel' => '+31 612345678', // toegevoegd
+                'email' => 'jan.vdheijden@gmail.com',
+                'mobiel' => '+31 612345678',
             ],
             [
                 'id' => 6,

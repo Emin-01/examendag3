@@ -14,7 +14,7 @@ class ContactPerLeverancierSeeder extends Seeder
             ['leverancier_id' => 2, 'contact_id' => 8],   // Albertus Kerk - Leo Pastoor
             ['leverancier_id' => 3, 'contact_id' => 9],   // Gemeente Utrecht - Mohammed Yazidi
             ['leverancier_id' => 4, 'contact_id' => 10],  // Boerderij Meerhoven - Bertus van Driel
-            ['leverancier_id' => 5, 'contact_id' => 14],  // Jan van der Heijden - geen email/mobiel
+            ['leverancier_id' => 5, 'contact_id' => 14],  // Jan van der Heijden - nu met email/mobiel
             ['leverancier_id' => 6, 'contact_id' => 11],  // Vomar - Jaco Pastorius
             ['leverancier_id' => 7, 'contact_id' => 12],  // DekaMarkt - Sil den Dollaard
             ['leverancier_id' => 8, 'contact_id' => 13],  // Gemeente Vught - Jan Blokker
