@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Leverancier;
-use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -14,7 +13,7 @@ class ProductController extends Controller
         $leverancier = Leverancier::findOrFail($leverancierId);
 
         // Haal producten op via de tussenliggende tabel productperleverancier
-        $producten = \DB::table('productperleverancier')
+        $producten = DB::table('productperleverancier')
             ->join('products', 'productperleverancier.ProductId', '=', 'products.id')
             ->where('productperleverancier.LeverancierId', $leverancierId)
             ->select(
@@ -35,7 +34,7 @@ class ProductController extends Controller
     public function edit($ppid)
     {
         // Haal de juiste rij uit de tussenliggende tabel en het product
-        $pp = \DB::table('productperleverancier')
+        $pp = DB::table('productperleverancier')
             ->where('id', $ppid)
             ->first();
 
@@ -43,7 +42,7 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $product = \DB::table('products')->where('id', $pp->ProductId)->first();
+        $product = DB::table('products')->where('id', $pp->ProductId)->first();
 
         return view('producten.edit', [
             'ppid' => $ppid,
@@ -56,39 +55,54 @@ class ProductController extends Controller
     public function update(Request $request, $ppid)
     {
         $request->validate([
-            'naam' => 'required|string',
-            'soortallergie' => 'nullable|string',
-            'barcode' => 'nullable|string',
             'houdbaarheidsdatum' => 'required|date',
-            'datum_aangeleverd' => 'nullable|date',
-            'datum_eerst_volgende_levering' => 'nullable|date',
+            'datum_aangeleverd' => 'required|date',
+            'datum_eerst_volgende_levering' => 'required|date',
         ]);
 
-        $pp = \DB::table('productperleverancier')->where('id', $ppid)->first();
+        $pp = DB::table('productperleverancier')->where('id', $ppid)->first();
         if (!$pp) {
             abort(404);
         }
 
-        // Update product
-        \DB::table('products')
+        $product = DB::table('products')->where('id', $pp->ProductId)->first();
+        $oudeDatum = $product->houdbaarheidsdatum;
+        $nieuweDatum = $request->houdbaarheidsdatum;
+
+        // Controle: mag max 7 dagen verlengd worden
+        $maxToegestaan = false;
+        if ($oudeDatum && $nieuweDatum) {
+            $verschil = \Carbon\Carbon::parse($oudeDatum)->diffInDays(\Carbon\Carbon::parse($nieuweDatum), false);
+            if ($verschil > 7) {
+                $maxToegestaan = true;
+            }
+        }
+
+        if ($maxToegestaan) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'De houdbaarheidsdatum is niet gewijzigd. De houdbaarheidsdatum mag met maximaal 7 dagen worden verlengd');
+        }
+
+        // Update houdbaarheidsdatum in products tabel
+        DB::table('products')
             ->where('id', $pp->ProductId)
             ->update([
-                'naam' => $request->naam,
-                'soortallergie' => $request->soortallergie,
-                'barcode' => $request->barcode,
-                'houdbaarheidsdatum' => $request->houdbaarheidsdatum,
+                'houdbaarheidsdatum' => $nieuweDatum,
             ]);
 
-        // Update productperleverancier
-        \DB::table('productperleverancier')
+        // Update leverdata in productperleverancier tabel
+        DB::table('productperleverancier')
             ->where('id', $ppid)
             ->update([
                 'DatumAangeleverd' => $request->datum_aangeleverd,
                 'DatumEerstVolgendeLevering' => $request->datum_eerst_volgende_levering,
             ]);
 
+        // Stuur terug naar het productoverzicht van de leverancier met een succesmelding
         return redirect()
-            ->route('producten.edit', $ppid)
-            ->with('success', 'Product en leverdata zijn gewijzigd');
+            ->route('producten.index', $pp->LeverancierId)
+            ->with('success', 'De houdbaarheidsdatum is gewijzigd');
     }
 }

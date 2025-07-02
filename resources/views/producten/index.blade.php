@@ -6,6 +6,15 @@
             color: green;
             text-decoration: underline;
         }
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
         .producten-table {
             width: 100%;
             border-collapse: collapse;
@@ -64,6 +73,11 @@
         }
     </style>
     <h2 class="producten-header">Overzicht producten</h2>
+    @if(session('success'))
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
+    @endif
     <table class="info-table">
         <tr>
             <td><b>Naam:</b></td>
