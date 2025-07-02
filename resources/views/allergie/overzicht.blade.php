@@ -127,8 +127,8 @@
                         </td>
                         <td style="text-align: center;">
                             @if($vertegenwoordiger)
-                                <a href="{{ route('allergie.edit', ['id' => $vertegenwoordiger->id]) }}">
-                                    <button class="btn-icon" title="Wijzig Allergie">&#9998;</button>
+                                <a href="{{ route('allergie.details', ['id' => $vertegenwoordiger->id]) }}">
+                                    <button class="btn-icon" title="Bekijk details">&#128269;</button>
                                 </a>
                             @endif
                         </td>

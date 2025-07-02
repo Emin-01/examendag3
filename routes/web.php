@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/allergie/overzicht', [AllergieController::class, 'overzicht'])->name('allergie.overzicht');
 Route::get('/allergie/{id}/edit', [AllergieController::class, 'edit'])->name('allergie.edit');
 Route::put('/allergie/{id}', [AllergieController::class, 'update'])->name('allergie.update');
+Route::get('/allergie/details/{id}', [App\Http\Controllers\AllergieController::class, 'details'])->name('allergie.details');
+Route::put('/allergie/details/{id}', [App\Http\Controllers\AllergieController::class, 'updateDetails'])->name('allergie.details.update');
 
 
 require __DIR__.'/auth.php';

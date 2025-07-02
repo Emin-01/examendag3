@@ -48,4 +48,23 @@ class AllergieController extends Controller
 
         return redirect()->route('allergie.overzicht')->with('success', 'De wijziging is doorgevoerd');
     }
+
+    public function details($id)
+    {
+        $gezin = Gezin::with('personen.allergies')->findOrFail($id);
+        return view('allergie.details', ['gezinnen' => $gezin]);
+    }
+
+    public function updateDetails(Request $request, $id)
+    {
+        $persoon = Persoon::findOrFail($id);
+        $request->validate([
+            'allergie_id' => 'required|exists:allergies,id',
+        ]);
+        $persoon->allergie_id = $request->allergie_id;
+        $persoon->save();
+
+        return redirect()->route('allergie.overzicht')->with('success', 'Allergie bijgewerkt.');
+    }
 }
+
