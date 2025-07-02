@@ -172,6 +172,26 @@ class KlantController extends Controller
             $klant = $testData[$id] ?? reset($testData);
         }
 
+        // Flatten contactgegevens naar root voor de view
+        if (isset($klant['contact']) && is_array($klant['contact'])) {
+            foreach ($klant['contact'] as $key => $value) {
+                $klant[$key] = $value;
+            }
+        }
+        // Flatten vertegenwoordiger naar root voor de view
+        if (isset($klant['vertegenwoordiger']) && is_array($klant['vertegenwoordiger'])) {
+            foreach ($klant['vertegenwoordiger'] as $key => $value) {
+                $klant[$key] = $value;
+            }
+        }
+
+        // Zorg dat alleen scalars worden getoond in de view
+        foreach ($klant as $key => $value) {
+            if (is_array($value)) {
+                $klant[$key] = '';
+            }
+        }
+
         return view('klanten.show', compact('klant'));
     }
 
