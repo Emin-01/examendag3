@@ -11,9 +11,11 @@ return new class extends Migration
         Schema::create('leveranciers', function (Blueprint $table) {
             $table->id();
             $table->string('naam');
-            $table->string('contact_persoon');
-            $table->string('leverancier_nummer')->unique();
-            $table->enum('leverancier_type', ['Bedrijf', 'Instelling', 'Overheid', 'Particulier', 'Donor']);
+            $table->string('contactpersoon')->nullable();
+            $table->string('email')->nullable();
+            $table->string('mobiel')->nullable();
+            $table->string('leveranciernummer')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

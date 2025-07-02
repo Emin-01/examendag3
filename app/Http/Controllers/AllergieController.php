@@ -12,10 +12,6 @@ class AllergieController extends Controller
 {
     public function overzicht(Request $request)
     {
-        // Haal alle gezinnen op met hun personen en allergieën
-
-
-
         // Haal alle allergieën op
         $allergies = Allergie::all();
 
@@ -23,7 +19,7 @@ class AllergieController extends Controller
         $allergieId = $request->input('allergie_id');
 
         // Haal gezinnen op met hun personen en allergieën
-        $gezinnen = Gezin::with(['personen.allergies'])
+        $gezinnen = \App\Models\Gezin::with(['personen.allergies'])
             ->when($allergieId, function ($query) use ($allergieId) {
                 $query->whereHas('personen.allergies', function ($q) use ($allergieId) {
                     $q->where('allergies.id', $allergieId);
@@ -54,4 +50,23 @@ class AllergieController extends Controller
             return redirect()->route('allergie.overzicht')->with('error', 'Er is iets misgegaan bij het wijzigen.');
         }
     }
+
+    public function details($id)
+    {
+        $gezin = Gezin::with('personen.allergies')->findOrFail($id);
+        return view('allergie.details', ['gezinnen' => $gezin]);
+    }
+
+    public function updateDetails(Request $request, $id)
+    {
+        $persoon = Persoon::findOrFail($id);
+        $request->validate([
+            'allergie_id' => 'required|exists:allergies,id',
+        ]);
+        $persoon->allergie_id = $request->allergie_id;
+        $persoon->save();
+
+        return redirect()->route('allergie.overzicht')->with('success', 'Allergie bijgewerkt.');
+    }
 }
+
