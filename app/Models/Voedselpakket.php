@@ -23,4 +23,10 @@ class Voedselpakket extends Model
     {
         return $this->belongsTo(\App\Models\Gezin::class, 'gezin_id');
     }
+
+    public function producten()
+    {
+        // Pivot: product_per_voedselpakket, met product_id en aantal_product_eenheden
+        return $this->hasMany(\App\Models\ProductPerVoedselpakket::class, 'voedselpakket_id');
+    }
 }

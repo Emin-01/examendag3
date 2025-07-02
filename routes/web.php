@@ -1,3 +1,8 @@
+Route::middleware('auth')->group(function () {
+    // ...existing code...
+    Route::get('/voedselpakketen/{pakket}/edit', [\App\Http\Controllers\VoedselpakketController::class, 'edit'])->name('voedselpakketen.edit');
+    Route::put('/voedselpakketen/{pakket}', [\App\Http\Controllers\VoedselpakketController::class, 'update'])->name('voedselpakketen.update');
+});
 <?php
 
 use App\Http\Controllers\KlantController;
@@ -23,7 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/overzicht-voedselpakketen', [GezinController::class, 'index'])->name('voedselpakketen.overzicht');
+    Route::get('/overzicht-voedselpakketen', [\App\Http\Controllers\VoedselpakketController::class, 'overzicht'])->name('voedselpakketen.overzicht');
+    Route::get('/voedselpakketen/{id}/details', [\App\Http\Controllers\VoedselpakketController::class, 'details'])->name('voedselpakketen.details');
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leveranciers.index');
     Route::get('/leveranciers/{leverancier}/producten', [ProductController::class, 'index'])->name('producten.index');
     Route::get('/producten/{ppid}/edit', [ProductController::class, 'edit'])->name('producten.edit');

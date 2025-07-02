@@ -72,14 +72,12 @@
 
     <h2 class="voedselpakket-header">Overzicht gezinnen met voedselpakketten</h2>
 
-    <div class="filter-bar">
+    <div class="top-bar">
         <form method="GET" action="{{ route('voedselpakketen.overzicht') }}" style="display: flex; gap: 10px;">
             <select name="eetwens_id">
                 <option value="">Selecteer Eetwens</option>
                 @foreach($eetwensen as $ew)
-                    <option value="{{ $ew->id }}" {{ (isset($eetwensId) && $eetwensId == $ew->id) ? 'selected' : '' }}>
-                        {{ $ew->naam }}
-                    </option>
+                    <option value="{{ $ew->id }}" {{ (isset($eetwensId) && $eetwensId == $ew->id) ? 'selected' : '' }}>{{ $ew->naam }}</option>
                 @endforeach
             </select>
             <button class="btn-primary" type="submit">Toon Gezinnen</button>
@@ -126,7 +124,7 @@
                             {{ $vertegenwoordiger ? $vertegenwoordiger->voornaam . ' ' . $vertegenwoordiger->achternaam : '~~~~' }}
                         </td>
                         <td style="text-align: center;">
-                            <a href="{{ route('allergie.details', ['id' => $gezin->id]) }}" class="details-icon" title="Voedselpakket Details">
+                            <a href="{{ route('voedselpakketen.details', ['id' => $gezin->id]) }}" class="details-icon" title="Voedselpakket Details">
                                 &#128230;
                             </a>
                         </td>
