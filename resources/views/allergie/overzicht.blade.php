@@ -6,6 +6,7 @@
             </h1>
             <div class="flex items-center gap-2">
                 <form method="GET" action="{{ route('allergie.overzicht') }}">
+                    @csrf
                     <select name="allergie_id" class="border rounded px-2 py-1 h-8 text-[15px]">
                         <option value="">Selecteer eetwens</option>
                         @foreach($allergies as $allergie)
