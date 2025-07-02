@@ -76,6 +76,11 @@
     </style>
     <div class="edit-form">
         <h2 class="pakket-header">Wijzig voedselpakket status</h2>
+        @if($melding)
+            <div class="success-message" style="background: #fff3cd; color: #856404; border: 1px solid #ffeeba;">
+                {{ $melding }}
+            </div>
+        @endif
         @if(session('success'))
             <div class="success-message" id="success-message">
                 {{ session('success') }}
@@ -90,12 +95,12 @@
             @csrf
             @method('PUT')
             <label for="status">Status</label>
-            <select name="status" id="status">
+            <select name="status" id="status" @if($disabled) disabled @endif>
                 @foreach($statussen as $status)
                     <option value="{{ $status }}" {{ $pakket->status == $status ? 'selected' : '' }}>{{ $status }}</option>
                 @endforeach
             </select>
-            <button type="submit" class="btn-primary">Wijzig status voedselpakket</button>
+            <button type="submit" class="btn-primary" @if($disabled) disabled @endif>Wijzig status voedselpakket</button>
             <a href="{{ route('voedselpakketen.details', $pakket->gezin_id) }}" class="btn-secondary">terug</a>
             <a href="{{ url('/') }}" class="home-btn">home</a>
         </form>

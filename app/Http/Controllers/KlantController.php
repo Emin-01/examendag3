@@ -228,10 +228,6 @@ class KlantController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Alleen deze postcode is toegestaan (zonder spaties, hoofdletters)
-        $toegestanePostcode = '5271ZH';
-
-        // Altijd verplicht
         $data = $request->validate([
             'voornaam' => 'required',
             'tussenvoegsel' => 'nullable',
@@ -244,10 +240,15 @@ class KlantController extends Controller
             'toevoeging' => 'nullable',
             'postcode' => [
                 'required',
-                function ($attribute, $value, $fail) use ($toegestanePostcode) {
-                    // Normaliseer invoer
+                function ($attribute, $value, $fail) {
                     $input = strtoupper(str_replace(' ', '', $value));
-                    if ($input !== $toegestanePostcode && $input !== '5271') {
+                    if (!preg_match('/^[0-9]{4}[A-Z]{2}$/', $input)) {
+                        $fail('De postcode moet 4 cijfers en 2 letters bevatten (bijv. 5271AB)');
+                        return;
+                    }
+                    // Alleen deze postcode is toegestaan (zonder spaties, hoofdletters)
+                    $toegestanePostcode = '5271ZH';
+                    if ($input !== $toegestanePostcode) {
                         $fail('De postcode komt niet uit de regio Maaskantje');
                     }
                 }
@@ -256,16 +257,6 @@ class KlantController extends Controller
             'email' => 'required|email',
             'mobiel' => 'nullable',
         ]);
-
-        // Check nogmaals voor unhappy scenario
-        $input = strtoupper(str_replace(' ', '', $request->postcode));
-        if ($input !== $toegestanePostcode && $input !== '5271') {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors(['postcode' => 'De postcode komt niet uit de regio Maaskantje'])
-                ->with('status', 'De contactgegevens van de geselecteerde klant kunnen niet gewijzigd');
-        }
 
         // Simuleer update: sla ALLE gewijzigde data tijdelijk op in de sessie
         session(['klant_'.$id => $data + ['id' => $id]]);

@@ -21,6 +21,10 @@
                     <tr><td class="py-2 px-4 font-semibold">Achternaam</td><td class="py-2 px-4"><input type="text" name="achternaam" class="w-full border rounded px-2 py-1" value="{{ $klant['achternaam'] }}"></td></tr>
                     <tr><td class="py-2 px-4 font-semibold">Geboortedatum</td><td class="py-2 px-4"><input type="date" name="geboortedatum" class="w-full border rounded px-2 py-1" value="{{ $klant['geboortedatum'] }}"></td></tr>
                     <tr><td class="py-2 px-4 font-semibold">TypePersoon</td><td class="py-2 px-4"><input type="text" name="type_persoon" class="w-full border rounded px-2 py-1" value="{{ $klant['type_persoon'] }}"></td></tr>
+                    <tr><td class="py-2 px-4 font-semibold">Vertegenwoordiger</td><td class="py-2 px-4"><input type="text" name="vertegenwoordiger" class="w-full border rounded px-2 py-1" value="{{ $klant['vertegenwoordiger'] ?? '' }}"></td></tr>
+                    <tr><td class="py-2 px-4 font-semibold">Straatnaam</td><td class="py-2 px-4"><input type="text" name="straatnaam" class="w-full border rounded px-2 py-1" value="{{ $klant['straatnaam'] ?? '' }}"></td></tr>
+                    <tr><td class="py-2 px-4 font-semibold">Huisnummer</td><td class="py-2 px-4"><input type="text" name="huisnummer" class="w-full border rounded px-2 py-1" value="{{ $klant['huisnummer'] ?? '' }}"></td></tr>
+                    <tr><td class="py-2 px-4 font-semibold">Toevoeging</td><td class="py-2 px-4"><input type="text" name="toevoeging" class="w-full border rounded px-2 py-1" value="{{ $klant['toevoeging'] ?? '' }}"></td></tr>
                     <tr>
                         <td class="py-2 px-4 font-semibold">Postcode</td>
                         <td class="py-2 px-4">

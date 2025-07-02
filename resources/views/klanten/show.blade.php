@@ -23,7 +23,17 @@
                 <tr><td class="py-2 px-4 font-semibold">Straatnaam</td><td class="py-2 px-4">{{ $klant['straatnaam'] ?? '' }}</td></tr>
                 <tr><td class="py-2 px-4 font-semibold">Huisnummer</td><td class="py-2 px-4">{{ $klant['huisnummer'] ?? '' }}</td></tr>
                 <tr><td class="py-2 px-4 font-semibold">Toevoeging</td><td class="py-2 px-4">{{ $klant['toevoeging'] ?? '' }}</td></tr>
-                <tr><td class="py-2 px-4 font-semibold">Postcode</td><td class="py-2 px-4">{{ $klant['postcode'] ?? '' }}</td></tr>
+                <tr><td class="py-2 px-4 font-semibold">Postcode</td><td class="py-2 px-4">
+                    {{ $klant['postcode'] ?? '' }}
+                    @php
+                        $postcode = $klant['postcode'] ?? '';
+                        // Postcode moet 4 cijfers + 2 letters zijn (mag spatie ertussen hebben)
+                        $postcodeCheck = preg_match('/^[0-9]{4}\s?[A-Z]{2}$/i', $postcode);
+                    @endphp
+                    @if($postcode && !$postcodeCheck)
+                        <div class="text-red-600 text-sm mt-1">De postcode moet 4 cijfers en 2 letters bevatten (bijv. 5271AB)</div>
+                    @endif
+                </td></tr>
                 <tr><td class="py-2 px-4 font-semibold">Woonplaats</td><td class="py-2 px-4">{{ $klant['woonplaats'] ?? '' }}</td></tr>
                 <tr><td class="py-2 px-4 font-semibold">Email</td><td class="py-2 px-4">{{ $klant['email'] ?? '' }}</td></tr>
                 <tr><td class="py-2 px-4 font-semibold">Mobiel</td><td class="py-2 px-4">{{ $klant['mobiel'] ?? '' }}</td></tr>

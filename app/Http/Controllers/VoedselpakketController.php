@@ -47,13 +47,21 @@ class VoedselpakketController extends Controller
         ]);
     }
 
+
 public function edit($pakket)
 {
     $pakket = \App\Models\Voedselpakket::with('producten.product')->findOrFail($pakket);
-
+    $disabled = false;
+    $melding = null;
+    if ($pakket->status === 'NietMeerIngeschreven') {
+        $disabled = true;
+        $melding = 'Dit gezin is niet meer ingeschreven bij de voedselbank en daarom kan er geen voedselpakket worden uitgereikt';
+    }
     return view('voedselpakketen.edit', [
         'pakket' => $pakket,
         'statussen' => ['Uitgereikt', 'NietUitgereikt', 'NietMeerIngeschreven'],
+        'disabled' => $disabled,
+        'melding' => $melding,
     ]);
 }
 
