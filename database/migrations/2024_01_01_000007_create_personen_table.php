@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('personen', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gezin_id')->nullable()->constrained('gezinnen')->onDelete('set null');
+            $table->foreignId('gezin_id')->nullable();
             $table->string('voornaam');
             $table->string('tussenvoegsel')->nullable();
             $table->string('achternaam');
