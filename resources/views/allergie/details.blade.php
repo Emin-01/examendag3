@@ -1,59 +1,132 @@
-<x-app-layout>
-    <div class="max-w-5xl mx-auto mt-8 bg-white p-6 rounded shadow">
-        <h2 class="text-green-700 underline text-xl font-semibold mb-4">Allergieën in het gezin</h2>
-        <div class="mb-6">
-            <table class="min-w-[350px] border border-gray-300 mb-4">
+@extends('layouts.app')
+
+@section('content')
+    <style>
+        .allergie-header {
+            color: green;
+            text-decoration: underline;
+        }
+        .info-table {
+            margin-bottom: 18px;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        .info-table td {
+            border: 1px solid #eee;
+            padding: 6px 16px;
+        }
+        .personen-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        .personen-table th, .personen-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .personen-table th {
+            background-color: #f9f9f9;
+        }
+        .btn-secondary {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+        .btn-secondary:hover {
+            background-color: #1d4ed8;
+        }
+        .home-btn {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 16px;
+            text-decoration: none;
+            margin-left: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .home-btn:hover {
+            background-color: #1d4ed8;
+        }
+        .edit-icon {
+            color: #2563eb;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .edit-icon:hover {
+            color: #1d4ed8;
+        }
+        .empty-message {
+            background: #fffbe6;
+            color: #666;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #ffe58f;
+            text-align: center;
+        }
+    </style>
+    <h2 class="allergie-header">Allergieën in het gezin</h2>
+    <table class="info-table">
+        <tr>
+            <td><b>Gezinsnaam:</b></td>
+            <td>{{ $gezinnen->naam ?? '~~~~' }}</td>
+        </tr>
+        <tr>
+            <td><b>Omschrijving:</b></td>
+            <td>{{ $gezinnen->omschrijving ?? '~~~~' }}</td>
+        </tr>
+        <tr>
+            <td><b>Totaal aantal Personen:</b></td>
+            <td>{{ $gezinnen->personen->count() ?? '~~~~' }}</td>
+        </tr>
+    </table>
+    <table class="personen-table">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Type Persoon</th>
+                <th>Gezinsrol</th>
+                <th>Allergie</th>
+                <th>Wijzig Allergie</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($gezinnen->personen as $persoon)
                 <tr>
-                    <td class="px-3 py-2 border border-gray-300 font-semibold">Gezinsnaam:</td>
-                    <td class="px-3 py-2 border border-gray-300">{{ $gezinnen->naam ?? '~~~~' }}</td>
+                    <td>{{ $persoon->voornaam }} {{ $persoon->achternaam }}</td>
+                    <td>{{ $persoon->type_persoon ?? '~~~~' }}</td>
+                    <td>
+                        {{ $persoon->is_vertegenwoordiger ? 'Vertegenwoordiger' : 'Gezinslid' }}
+                    </td>
+                    <td>
+                        @php
+                            $allergieNamen = $persoon->allergies->pluck('naam')->implode(', ');
+                        @endphp
+                        {{ $allergieNamen ?: 'Geen' }}
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="{{ route('allergie.edit', ['id' => $persoon->id]) }}" class="edit-icon" title="Wijzig Allergie">&#9998;</a>
+                    </td>
                 </tr>
+            @empty
                 <tr>
-                    <td class="px-3 py-2 border border-gray-300 font-semibold">Omschrijving:</td>
-                    <td class="px-3 py-2 border border-gray-300">{{ $gezinnen->omschrijving ?? '~~~~' }}</td>
+                    <td colspan="5">
+                        <div class="empty-message">
+                            Geen personen gevonden.
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                    <td class="px-3 py-2 border border-gray-300 font-semibold">Totaal aantal Personen:</td>
-                    <td class="px-3 py-2 border border-gray-300">{{ $gezinnen->personen->count() ?? '~~~~' }}</td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <table class="w-full border border-gray-300 mb-6">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border border-gray-300 px-3 py-2 text-left">Naam</th>
-                        <th class="border border-gray-300 px-3 py-2 text-left">Type Persoon</th>
-                        <th class="border border-gray-300 px-3 py-2 text-left">Gezinsrol</th>
-                        <th class="border border-gray-300 px-3 py-2 text-left">Allergie</th>
-                        <th class="border border-gray-300 px-3 py-2 text-left">Wijzig Allergie</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($gezinnen->personen as $persoon)
-                        <tr>
-                            <td class="border border-gray-300 px-3 py-2">{{ $persoon->voornaam }} {{ $persoon->achternaam }}</td>
-                            <td class="border border-gray-300 px-3 py-2">{{ $persoon->type_persoon ?? '~~~~' }}</td>
-                            <td class="border border-gray-300 px-3 py-2">
-                                {{ $persoon->is_vertegenwoordiger ? 'Vertegenwoordiger' : ($persoon->gezinsrol ?? '~~~~') }}
-                            </td>
-                            <td class="border border-gray-300 px-3 py-2">
-                                {{ $persoon->allergie->naam ?? '~~~~' }}
-                            </td>
-                            <td class="border border-gray-300 px-3 py-2 text-center">
-                                <a href="{{ route('allergie.details', ['id' => $persoon->id]) }}" title="Wijzig Allergie" class="inline-block text-blue-600 hover:text-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.828l-4.243 1.415 1.415-4.243a4 4 0 01.828-1.414z" />
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="flex justify-end gap-2 mt-4">
-            <a href="{{ url()->previous() }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">terug</a>
-            <a href="{{ route('dashboard') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">home</a>
-        </div>
+            @endforelse
+        </tbody>
+    </table>
+    <div style="margin-top: 12px;">
+        <a href="{{ url()->previous() }}" class="btn-secondary">Terug</a>
+        <a href="{{ route('dashboard') }}" class="home-btn">Home</a>
     </div>
-</x-app-layout>
+@endsection
