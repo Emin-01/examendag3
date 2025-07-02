@@ -18,8 +18,11 @@
                     <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.index')">
                         Overzicht Leverancier
                     </x-nav-link>
+                    <x-nav-link :href="route('voedselpakketen.overzicht')" :active="request()->routeIs('voedselpakketen.overzicht')">
+                        Overzicht voedselpakketten
+                    </x-nav-link>
                     <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
-                        {{ __('Overzicht voedselpakketen') }}
+                        Overzicht allergieën
                     </x-nav-link>
                 </div>
             </div>

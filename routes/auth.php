@@ -9,9 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Models\Allergie;
 use Illuminate\Support\Facades\Route;
-use App\Models\Gezin;
 
 
 Route::middleware('guest')->group(function () {
@@ -59,10 +57,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-
-    Route::get('overzicht-voedselpakketen', function () {
-        $allergies = \App\Models\Allergie::all(); // Haal alle allergieën op
-        $gezinnen = \App\Models\Gezin::with(['personen.allergies'])->get(); // Haal alle gezinnen op met hun personen en allergieën
-        return view('allergie.overzicht', compact('allergies', 'gezinnen'));
-    })->name('allergie.overzicht');
 });
+
+Route::get('overzicht-voedselpakketen', function () {
+    $allergies = \App\Models\Allergie::all(); // Haal alle allergieën op
+    $gezinnen = \App\Models\Gezin::with(['personen.allergies'])->get(); // Haal alle gezinnen op met hun personen en allergieën
+    return view('allergie.overzicht', compact('allergies', 'gezinnen'));
+})->name('voedselpakketen.overzicht');
