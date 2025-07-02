@@ -81,7 +81,7 @@
                             ? array_filter($testData, fn($row) => $row['postcode'] === $selectedPostcode)
                             : $testData;
                     @endphp
-                    @forelse($filtered as $row)
+                    @forelse($filtered as $index => $row)
                     <tr class="even:bg-gray-50 hover:bg-green-50 transition">
                         <td class="px-4 py-3 border-b border-gray-100">{{ $row['naam'] }}</td>
                         <td class="px-4 py-3 border-b border-gray-100">{{ $row['vertegenwoordiger'] }}</td>
@@ -90,7 +90,7 @@
                         <td class="px-4 py-3 border-b border-gray-100">{{ $row['adres'] }}</td>
                         <td class="px-4 py-3 border-b border-gray-100">{{ $row['woonplaats'] }}</td>
                         <td class="px-4 py-3 border-b border-gray-100 text-center">
-                            <a href="{{ route('klanten.show', 1) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white border border-blue-300 hover:bg-blue-50 transition" title="Details">
+                            <a href="{{ route('klanten.show', $index + 1) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white border border-blue-300 hover:bg-blue-50 transition" title="Details">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <rect x="9" y="9" width="6" height="6" stroke="currentColor" stroke-width="2" fill="none"/>
                                 </svg>
