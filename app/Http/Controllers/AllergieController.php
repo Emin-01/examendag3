@@ -12,10 +12,6 @@ class AllergieController extends Controller
 {
     public function overzicht(Request $request)
     {
-        // Haal alle gezinnen op met hun personen en allergieën
-
-
-
         // Haal alle allergieën op
         $allergies = Allergie::all();
 
@@ -23,7 +19,7 @@ class AllergieController extends Controller
         $allergieId = $request->input('allergie_id');
 
         // Haal gezinnen op met hun personen en allergieën
-        $gezinnen = Gezin::with(['personen.allergies'])
+        $gezinnen = \App\Models\Gezin::with(['personen.allergies'])
             ->when($allergieId, function ($query) use ($allergieId) {
                 $query->whereHas('personen.allergies', function ($q) use ($allergieId) {
                     $q->where('allergies.id', $allergieId);
