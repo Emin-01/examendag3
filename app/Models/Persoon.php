@@ -30,4 +30,5 @@ class Persoon extends Model
     {
         return $this->belongsToMany(\App\Models\Allergie::class, 'allergie_per_persoon', 'persoon_id', 'allergie_id');
     }
+
 }

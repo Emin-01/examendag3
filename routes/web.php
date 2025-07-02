@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KlantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GezinController;
 use App\Http\Controllers\LeverancierController;
@@ -29,6 +30,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/producten/{ppid}', [ProductController::class, 'update'])->name('producten.update');
 });
 
+
+// Voeg deze route toe ONDER de bestaande routes, buiten de auth-groep:
+Route::get('/klanten', [KlantController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('klanten.index');
+
+Route::get('/klanten/{id}', [KlantController::class, 'show'])->name('klanten.show')->middleware('auth');
+Route::get('/klanten/{id}/edit', [KlantController::class, 'edit'])->name('klanten.edit')->middleware('auth');
+Route::post('/klanten/{id}/update', [KlantController::class, 'update'])->name('klanten.update')->middleware('auth');
+
 Route::get('/allergie/overzicht', [AllergieController::class, 'overzicht'])->name('allergie.overzicht');
 Route::get('/allergie/{id}/edit', [AllergieController::class, 'edit'])->name('allergie.edit');
 Route::put('/allergie/{id}', [AllergieController::class, 'update'])->name('allergie.update');
@@ -36,5 +47,6 @@ Route::get('/allergie/details/{id}', [App\Http\Controllers\AllergieController::c
 Route::put('/allergie/details/{id}', [App\Http\Controllers\AllergieController::class, 'updateDetails'])->name('allergie.details.update');
 
 // Geen dubbele of foutieve route meer voor overzicht-voedselpakketen
+
 
 require __DIR__.'/auth.php';

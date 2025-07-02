@@ -21,6 +21,23 @@ class Gezin extends Model
         'totaal_aantal_personen',
     ];
 
+
+    public function vertegenwoordiger()
+    {
+        return $this->hasOne(Persoon::class)->where('is_vertegenwoordiger', true);
+    }
+
+    public function contact()
+    {
+        return $this->hasOneThrough(
+            \App\Models\Contact::class,
+            \App\Models\ContactPerGezin::class,
+            'gezin_id', // Foreign key on contact_per_gezin
+            'id',       // Foreign key on contacten
+            'id',       // Local key on gezinnen
+            'contact_id'// Local key on contact_per_gezin
+        );
+
     public function personen()
     {
         return $this->hasMany(Persoon::class, 'gezin_id');
@@ -39,5 +56,6 @@ class Gezin extends Model
     public function voedselpakketten()
     {
         return $this->hasMany(\App\Models\Voedselpakket::class, 'gezin_id');
+
     }
 }

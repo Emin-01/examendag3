@@ -15,6 +15,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('klanten.index')" :active="request()->routeIs('klanten.index')">
+                        Overzicht Klanten
+
                     <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.index')">
                         Overzicht Leverancier
                     </x-nav-link>
@@ -23,6 +27,7 @@
                     </x-nav-link>
                     <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
                         Overzicht allergieën
+
                     </x-nav-link>
                 </div>
             </div>
