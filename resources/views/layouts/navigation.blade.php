@@ -19,7 +19,7 @@
                         Overzicht Leverancier
                     </x-nav-link>
                     <x-nav-link :href="route('voedselpakketen.overzicht')" :active="request()->routeIs('voedselpakketen.overzicht')">
-                        Overzicht voedselpakketten
+                        Overzicht Voedselpakketten
                     </x-nav-link>
                     <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
                         Overzicht allergieën

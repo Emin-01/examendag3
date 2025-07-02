@@ -58,9 +58,3 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
-
-Route::get('overzicht-voedselpakketen', function () {
-    $allergies = \App\Models\Allergie::all(); // Haal alle allergieën op
-    $gezinnen = \App\Models\Gezin::with(['personen.allergies'])->get(); // Haal alle gezinnen op met hun personen en allergieën
-    return view('allergie.overzicht', compact('allergies', 'gezinnen'));
-})->name('voedselpakketen.overzicht');

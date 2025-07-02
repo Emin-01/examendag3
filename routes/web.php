@@ -35,5 +35,6 @@ Route::put('/allergie/{id}', [AllergieController::class, 'update'])->name('aller
 Route::get('/allergie/details/{id}', [App\Http\Controllers\AllergieController::class, 'details'])->name('allergie.details');
 Route::put('/allergie/details/{id}', [App\Http\Controllers\AllergieController::class, 'updateDetails'])->name('allergie.details.update');
 
+// Geen dubbele of foutieve route meer voor overzicht-voedselpakketen
 
 require __DIR__.'/auth.php';
