@@ -5,11 +5,9 @@
             <form method="GET" action="{{ url()->current() }}" class="flex gap-2 w-full md:w-auto justify-end">
                 <select name="postcode" class="border border-gray-300 rounded px-6 py-2 text-base bg-white focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-400 min-w-[200px] appearance-none">
                     <option value="">Selecteer Postcode</option>
-                    <option value="1234AB" @if(request('postcode') == '1234AB') selected @endif>1234AB</option>
-                    <option value="5678CD" @if(request('postcode') == '5678CD') selected @endif>5678CD</option>
-                    <option value="1111AA" @if(request('postcode') == '1111AA') selected @endif>1111AA</option>
-                    <option value="2222BB" @if(request('postcode') == '2222BB') selected @endif>2222BB</option>
-                    <option value="3333CC" @if(request('postcode') == '3333CC') selected @endif>3333CC</option>
+                    <option value="5271TH" @if(request('postcode') == '5271TH') selected @endif>5271TH</option>
+                    <option value="5271TJ" @if(request('postcode') == '5271TJ') selected @endif>5271TJ</option>
+                    <option value="5271ZE" @if(request('postcode') == '5271ZE') selected @endif>5271ZE</option>
                     <option value="5271ZH" @if(request('postcode') == '5271ZH') selected @endif>5271ZH</option>
                 </select>
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold text-base shadow transition">Toon Klanten</button>
@@ -33,47 +31,47 @@
                     @php
                         $testData = [
                             [
-                                'postcode' => '1234AB',
-                                'naam' => 'Familie Jansen',
-                                'vertegenwoordiger' => 'Jan Jansen',
-                                'email' => 'jan.jansen@email.com',
-                                'mobiel' => '06-12345678',
-                                'adres' => 'Dorpsstraat 1',
+                                'postcode' => '5271TH',
+                                'naam' => 'ZevenhuizenGezin',
+                                'vertegenwoordiger' => 'Johan Zevenhuizen ',
+                                'email' => 'j.van.zevenhuizen@gmail.com',
+                                'mobiel' => '+31 623456123',
+                                'adres' => 'Prinses Irenestraat 12',
                                 'woonplaats' => 'Maaskantje',
                             ],
                             [
-                                'postcode' => '5678CD',
-                                'naam' => 'Familie De Vries',
+                                'postcode' => '5271TJ ',
+                                'naam' => 'BergkampGezin',
                                 'vertegenwoordiger' => 'Piet de Vries',
                                 'email' => 'piet.vries@email.com',
-                                'mobiel' => '06-87654321',
+                                'mobiel' => '+31 623456123',
                                 'adres' => 'Kerklaan 22',
                                 'woonplaats' => 'Maaskantje',
                             ],
                             [
-                                'postcode' => '1111AA',
-                                'naam' => 'Familie Bakker',
+                                'postcode' => '5271TH',
+                                'naam' => 'HeuvelGezin',
                                 'vertegenwoordiger' => 'Anja Bakker',
                                 'email' => 'anja.bakker@email.com',
-                                'mobiel' => '06-23456789',
+                                'mobiel' => '+31 623456123',
                                 'adres' => 'Molenstraat 5',
                                 'woonplaats' => 'Maaskantje',
                             ],
                             [
-                                'postcode' => '2222BB',
-                                'naam' => 'Familie Visser',
+                                'postcode' => '5271TJ',
+                                'naam' => 'ScherderGezin',
                                 'vertegenwoordiger' => 'Kees Visser',
                                 'email' => 'kees.visser@email.com',
-                                'mobiel' => '06-34567890',
+                                'mobiel' => '+31 623456123',
                                 'adres' => 'Havenweg 10',
                                 'woonplaats' => 'Maaskantje',
                             ],
                             [
-                                'postcode' => '3333CC',
-                                'naam' => 'Familie Smit',
+                                'postcode' => '5271ZE',
+                                'naam' => 'DeJongGezin',
                                 'vertegenwoordiger' => 'Linda Smit',
                                 'email' => 'linda.smit@email.com',
-                                'mobiel' => '06-45678901',
+                                'mobiel' => '+31 623456123',
                                 'adres' => 'Schoolstraat 8',
                                 'woonplaats' => 'Maaskantje',
                             ],

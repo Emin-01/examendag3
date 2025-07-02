@@ -170,7 +170,10 @@ class KlantController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Simuleer validatie
+        // Alleen deze postcode is toegestaan (zonder spaties, hoofdletters)
+        $toegestanePostcode = '5271ZH';
+
+        // Altijd verplicht
         $data = $request->validate([
             'voornaam' => 'required',
             'tussenvoegsel' => 'nullable',
@@ -181,18 +184,37 @@ class KlantController extends Controller
             'straatnaam' => 'nullable',
             'huisnummer' => 'nullable',
             'toevoeging' => 'nullable',
-            'postcode' => 'nullable',
+            'postcode' => [
+                'required',
+                function ($attribute, $value, $fail) use ($toegestanePostcode) {
+                    // Normaliseer invoer
+                    $input = strtoupper(str_replace(' ', '', $value));
+                    if ($input !== $toegestanePostcode && $input !== '5271') {
+                        $fail('De postcode komt niet uit de regio Maaskantje');
+                    }
+                }
+            ],
             'woonplaats' => 'nullable',
             'email' => 'required|email',
             'mobiel' => 'nullable',
         ]);
 
+        // Check nogmaals voor unhappy scenario
+        $input = strtoupper(str_replace(' ', '', $request->postcode));
+        if ($input !== $toegestanePostcode && $input !== '5271') {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['postcode' => 'De postcode komt niet uit de regio Maaskantje'])
+                ->with('status', 'De contactgegevens van de geselecteerde klant kunnen niet gewijzigd');
+        }
+
         // Simuleer update: sla ALLE gewijzigde data tijdelijk op in de sessie
         session(['klant_'.$id => $data + ['id' => $id]]);
 
-        // Redirect met melding en na 3 seconden terug naar details
         return redirect()
             ->route('klanten.show', $id)
             ->with('status', 'De klantgegevens zijn gewijzigd');
     }
+
 }
