@@ -80,14 +80,11 @@
         <form method="POST" action="{{ route('allergie.update', ['id' => $persoon->id]) }}">
             @csrf
             @method('PUT')
-            <div class="warning">
-                Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen
-                vanwege een hoog risico op een anafylactisch shock.
-            </div>
+            <div id="anafylactisch-warning" class="warning" style="display:none;"></div>
             <label for="allergie" class="form-label">Selecteer nieuwe allergie:</label>
             <select name="allergie_id" id="allergie" class="form-select">
                 @foreach($allergies as $allergie)
-                    <option value="{{ $allergie->id }}"
+                    <option value="{{ $allergie->id }}" data-anafylactisch="{{ $allergie->anafylactisch_risico ? '1' : '0' }}"
                         @if(isset($persoon->allergies) && $persoon->allergies->contains('id', $allergie->id)) selected @endif>
                         {{ $allergie->naam }}
                     </option>
@@ -96,6 +93,30 @@
             <button type="submit" class="btn-primary">Wijzig Allergie</button>
             <a href="{{ url()->previous() }}" class="btn-secondary">Terug</a>
             <a href="{{ route('dashboard') }}" class="home-btn">Home</a>
+            <script>
+                function checkAnafylactisch() {
+                    var select = document.getElementById('allergie');
+                    var warning = document.getElementById('anafylactisch-warning');
+                    var selected = select.options[select.selectedIndex];
+                    var naam = selected.textContent.trim().toLowerCase();
+                    var isPinda = naam === 'pindas' || naam === 'pinda' || naam.includes('pinda');
+                    if (isPinda) {
+                        warning.style.display = 'block';
+                        warning.style.background = '#fee2e2';
+                        warning.style.color = '#b91c1c';
+                        warning.style.border = '1px solid #fca5a5';
+                        warning.textContent = 'Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactisch shock';
+                    } else {
+                        warning.style.display = 'block';
+                        warning.style.background = '#fffbe6';
+                        warning.style.color = '#b45309';
+                        warning.style.border = '1px solid #ffe58f';
+                        warning.textContent = 'Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactisch shock.';
+                    }
+                }
+                document.getElementById('allergie').addEventListener('change', checkAnafylactisch);
+                window.addEventListener('DOMContentLoaded', checkAnafylactisch);
+            </script>
         </form>
     </div>
 @endsection

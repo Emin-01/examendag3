@@ -17,18 +17,17 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('klanten.index')" :active="request()->routeIs('klanten.index')">
-                        Overzicht Klanten
-
-                    <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.index')">
-                        Overzicht Leverancier
-                    </x-nav-link>
-                    <x-nav-link :href="route('voedselpakketen.overzicht')" :active="request()->routeIs('voedselpakketen.overzicht')">
-                        Overzicht Voedselpakketten
-                    </x-nav-link>
-                    <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
-                        Overzicht allergieën
-
-                    </x-nav-link>
+                    Overzicht Klanten
+                </x-nav-link>
+                <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.index')">
+                    Overzicht Leverancier
+                </x-nav-link>
+                <x-nav-link :href="route('voedselpakketen.overzicht')" :active="request()->routeIs('voedselpakketen.overzicht')">
+                    Overzicht Voedselpakketten
+                </x-nav-link>
+                <x-nav-link :href="route('allergie.overzicht')" :active="request()->routeIs('allergie.overzicht')">
+                    Overzicht allergieën
+                </x-nav-link>
                 </div>
             </div>
 
@@ -106,7 +105,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                @if(Auth::check())
+                
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
@@ -121,7 +120,6 @@
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
-                @endif
             </div>
         </div>
     </div>

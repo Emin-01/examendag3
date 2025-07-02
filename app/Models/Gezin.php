@@ -37,6 +37,7 @@ class Gezin extends Model
             'id',       // Local key on gezinnen
             'contact_id'// Local key on contact_per_gezin
         );
+    }
 
     public function personen()
     {

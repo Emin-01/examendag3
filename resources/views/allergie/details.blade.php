@@ -72,6 +72,11 @@
         }
     </style>
     <h2 class="allergie-header">Allergieën in het gezin</h2>
+    @if(session('unhappy'))
+        <div class="warning" style="margin-bottom:18px;">
+            Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactisch shock.
+        </div>
+    @endif
     <table class="info-table">
         <tr>
             <td><b>Gezinsnaam:</b></td>
