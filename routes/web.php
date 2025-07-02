@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GezinController;
 use App\Http\Controllers\LeverancierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AllergieController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/overzicht-voedselpakketen', [GezinController::class, 'index'])->name('voedselpakketen.overzicht');
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leveranciers.index');
     Route::get('/leveranciers/{leverancier}/producten', [ProductController::class, 'index'])->name('producten.index');
     Route::get('/producten/{ppid}/edit', [ProductController::class, 'edit'])->name('producten.edit');

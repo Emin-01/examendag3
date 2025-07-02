@@ -75,11 +75,14 @@
             text-align: center;
         }
     </style>
+
     <h2 class="allergie-header">Overzicht gezinnen met allergieën</h2>
+
     <div class="top-bar">
         <form method="GET" action="{{ route('allergie.overzicht') }}" style="display: flex; gap: 10px;">
+            @csrf
             <select name="allergie_id" class="border rounded px-2 py-1 h-8 text-[15px]">
-                <option value="">Selecteer allergie</option>
+                <option value="">Selecteer eetwens</option>
                 @foreach($allergies as $allergie)
                     <option value="{{ $allergie->id }}" {{ request('allergie_id') == $allergie->id ? 'selected' : '' }}>
                         {{ $allergie->naam }}
@@ -89,6 +92,7 @@
             <button type="submit" class="btn-secondary" style="margin:0;">Toon Gezinnen</button>
         </form>
     </div>
+
     <table class="allergie-table">
         <thead>
             <tr>
@@ -126,16 +130,17 @@
                             {{ $vertegenwoordiger ? $vertegenwoordiger->voornaam . ' ' . $vertegenwoordiger->achternaam : '' }}
                         </td>
                         <td style="text-align: center;">
-                            @if($vertegenwoordiger)
-                                <a href="{{ route('allergie.details', ['id' => $vertegenwoordiger->id]) }}">
-                                    <button class="btn-icon" title="Bekijk details">&#128269;</button>
-                                </a>
-                            @endif
+                            <a href="{{ route('allergie.edit', ['id' => $gezin->id]) }}">
+                                <button class="btn-icon" title="Bewerk gezin">
+                                    &#9998;
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
             @endif
         </tbody>
     </table>
+
     <a href="{{ route('dashboard') }}" class="home-btn">home</a>
 @endsection

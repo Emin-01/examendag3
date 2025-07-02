@@ -40,13 +40,15 @@ class AllergieController extends Controller
 
     public function update(Request $request, $id)
     {
-        $persoon = Persoon::findOrFail($id);
-        $allergieId = $request->input('allergie_id');
-
-        // Update de allergie in de pivot-tabel
-        $persoon->allergies()->sync([$allergieId]);
-
-        return redirect()->route('allergie.overzicht')->with('success', 'De wijziging is doorgevoerd');
+        try {
+            $persoon = Persoon::findOrFail($id);
+            $allergieId = $request->input('allergie_id');
+            // Update de allergie in de pivot-tabel
+            $persoon->allergies()->sync([$allergieId]);
+            return redirect()->route('allergie.overzicht')->with('success', 'De wijziging is doorgevoerd');
+        } catch (\Exception $e) {
+            return redirect()->route('allergie.overzicht')->with('error', 'Er is iets misgegaan bij het wijzigen.');
+        }
     }
 
     public function details($id)
