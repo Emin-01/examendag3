@@ -67,9 +67,13 @@ public function edit($pakket)
 
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'status' => 'required|in:Uitgereikt,NietUitgereikt,NietMeerIngeschreven',
+        ]);
+
         $pakket = \App\Models\Voedselpakket::findOrFail($id);
         $oudStatus = $pakket->status;
-        $pakket->status = $request->input('status');
+        $pakket->status = $validated['status'];
         if ($pakket->status === 'Uitgereikt') {
             $pakket->datum_uitgifte = now()->toDateString();
         } elseif ($oudStatus === 'Uitgereikt' && $pakket->status !== 'Uitgereikt') {
