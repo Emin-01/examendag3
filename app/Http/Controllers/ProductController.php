@@ -57,12 +57,12 @@ class ProductController extends Controller
 
 
         $request->validate([
-            'houdbaarheidsdatum' => ['required', 'date', 'after_or_equal:today'],
+            'houdbaarheidsdatum' => ['required', 'date'],
             'datum_aangeleverd' => ['required', 'date'],
-            'datum_eerst_volgende_levering' => ['required', 'date', 'after_or_equal:datum_aangeleverd'],
+           // 'datum_eerst_volgende_levering' => ['required', 'date', 'after_or_equal:datum_aangeleverd'],
         ], [
-            'houdbaarheidsdatum.after_or_equal' => 'De houdbaarheidsdatum mag niet voor vandaag zijn.',
-            'datum_eerst_volgende_levering.after_or_equal' => 'De eerstvolgende levering mag niet voor de datum aangeleverd zijn.'
+            //'houdbaarheidsdatum.after_or_equal' => 'De houdbaarheidsdatum mag niet voor vandaag zijn.',
+            //'datum_eerst_volgende_levering.after_or_equal' => 'De eerstvolgende levering mag niet voor de datum aangeleverd zijn.'
         ]);
 
         $pp = \DB::table('productperleverancier')->where('id', $ppid)->first();

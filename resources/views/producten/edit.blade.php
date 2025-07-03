@@ -76,6 +76,9 @@
         <form method="POST" action="{{ route('producten.update', $ppid) }}">
             @csrf
             @method('PUT')
+            @if(isset($product->leverancier_id) && !is_array($product->leverancier_id))
+                <input type="hidden" name="leverancier_id" value="{{ $product->leverancier_id }}">
+            @endif
             <div style="margin-bottom: 16px;">
                 <label for="houdbaarheidsdatum" class="form-label">Houdbaarheidsdatum:</label>
                 <input type="date" id="houdbaarheidsdatum" name="houdbaarheidsdatum"

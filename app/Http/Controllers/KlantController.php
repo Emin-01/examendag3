@@ -242,13 +242,13 @@ class KlantController extends Controller
                 'required',
                 function ($attribute, $value, $fail) {
                     $input = strtoupper(str_replace(' ', '', $value));
+                    // Alleen 5271ZH en 5271TJ zijn toegestaan
+                    $toegestanePostcodes = ['5271ZH', '5271TJ'];
                     if (!preg_match('/^[0-9]{4}[A-Z]{2}$/', $input)) {
-                        $fail('De postcode moet 4 cijfers en 2 letters bevatten (bijv. 5271AB)');
+                        $fail('De postcode moet 4 cijfers en 2 hoofdletters bevatten (bijv. 5271ZH)');
                         return;
                     }
-                    // Alleen deze postcode is toegestaan (zonder spaties, hoofdletters)
-                    $toegestanePostcode = '5271ZH';
-                    if ($input !== $toegestanePostcode) {
+                    if (!in_array($input, $toegestanePostcodes)) {
                         $fail('De postcode komt niet uit de regio Maaskantje');
                     }
                 }
